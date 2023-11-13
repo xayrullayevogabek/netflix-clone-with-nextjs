@@ -1,16 +1,28 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { LockKeyhole, Trash2, Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import LoginAccountForm from "@/components/form/login-account-form";
 import CreateAccountForm from "@/components/form/create-account-form";
+import { AccountProps } from "@/types";
 
 const ManageAccount = () => {
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [state, setState] = useState<"login" | "create">();
+  const [account, setAccount] = useState<AccountProps[]>([])
+
+  useEffect(() => {
+    const getAllAccounts = async () => {
+      try {
+        
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },[])
 
   return (
     <div className="min-h-screen flex justify-center flex-col items-center relative">

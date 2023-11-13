@@ -1,9 +1,58 @@
-import React from 'react'
+import React, { useState } from "react";
+import PinInput from "react-pin-input";
 
 const LoginAccountForm = () => {
-  return (
-    <div>LoginAccountForm</div>
-  )
-}
+  const [error, setError] = useState(false);
+  const [pin, setPin] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-export default LoginAccountForm
+  const onSubmit = async (value: string) => {
+    console.log(value);
+  };
+
+  return (
+    <>
+      <h1 className="text-gray-400 font-bold text-[16px] mb-4">
+        Profile Lock is currently ON
+      </h1>
+      {error ? (
+        <h2 className="text-red-500 text-center font-bold text-20px">
+          Whoops, wrong PIN. Please try again
+        </h2>
+      ) : (
+        <h2 className="text-white text-center font-bold text-[20px]">
+          Enter your PIN to access this profile
+        </h2>
+      )}
+      <div className="flex items-center justify-center">
+        <PinInput
+          length={4}
+          initialValue={pin}
+          onChange={(value) => setPin(value)}
+          secret
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4,1fr)",
+            gap: "10px",
+          }}
+          inputStyle={{
+            borderColor: "RGBA(255,255,255, 0.16)",
+            height: "56px",
+            width: "100%",
+            fontSize: "40px",
+            borderRadius: "5px",
+          }}
+          disabled={isLoading}
+          secretDelay={1000}
+          type="numeric"
+          inputMode="number"
+          inputFocusStyle={{ borderColor: "RGBA(255,255,255, 0.80)" }}
+          autoSelect={true}
+          onComplete={(value) => onSubmit(value)}
+        />
+      </div>
+    </>
+  );
+};
+
+export default LoginAccountForm;
