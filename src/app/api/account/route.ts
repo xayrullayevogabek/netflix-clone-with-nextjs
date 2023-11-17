@@ -32,7 +32,8 @@ export async function POST(req: Request) {
 
     const account = await Account.create({ name, pin: hashPin, uid });
 
-    return NextResponse.json({ account });
+    return NextResponse.json({success: true, data: account
+    });
   } catch (error) {
     return NextResponse.json({
       success: false,

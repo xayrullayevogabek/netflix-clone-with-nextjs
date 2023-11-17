@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { ContextType, ChildProps, AccountProps } from "@/types";
 
@@ -7,8 +7,17 @@ export const Context = createContext<ContextType | null>(null);
 
 const GlobalContext = ({ children }: ChildProps) => {
   const [account, setAccount] = useState<AccountProps | null>(null);
+  const [pageLoader, setPageLoader] = useState(true)
+
+  useEffect(() => {
+    const storedAccount = sessionStorage.getItem("account");
+    if (storedAccount !== null) {
+      setAccount(JSON.parse(storedAccount));
+    }
+  }, []);
+
   return (
-    <Context.Provider value={{ account, setAccount }}>
+    <Context.Provider value={{ account, setAccount, pageLoader, setPageLoader }}>
       {children}
     </Context.Provider>
   );

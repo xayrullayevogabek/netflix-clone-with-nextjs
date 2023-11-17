@@ -1,13 +1,48 @@
+'use client'
+import { AccountProps, AccountResponse } from "@/types";
+import axios from "axios";
 import React, { useState } from "react";
 import PinInput from "react-pin-input";
+import { useGlobalContext } from "@/context";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
-const LoginAccountForm = () => {
+interface Props {
+  currentAccount: AccountProps | null;
+}
+
+const LoginAccountForm = ({ currentAccount }: Props) => {
   const [error, setError] = useState(false);
   const [pin, setPin] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { setAccount } = useGlobalContext();
+  const pathname = usePathname();
+  const router = useRouter();
+
   const onSubmit = async (value: string) => {
-    console.log(value);
+    setIsLoading(true);
+    try {
+      const { data } = await axios.post<AccountResponse>(`/api/account/login`, {
+        uid: currentAccount?.uid,
+        accountId: currentAccount?._id,
+        pin: value,
+      });
+
+      if (data.success) {
+        setAccount(data.accounts as AccountProps);
+        router.push(pathname);
+        sessionStorage.setItem("account", JSON.stringify(data.accounts));
+        toast.success("Account successfully unlocked !");
+      } else {
+        setError(true);
+      }
+    } catch (error) {
+      toast.error("Something went wrong")
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

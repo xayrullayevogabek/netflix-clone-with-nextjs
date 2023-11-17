@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { createAccountSchema } from "@/lib/validation";
@@ -15,8 +15,18 @@ import {
 import PinInput from "react-pin-input";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { AccountProps, AccountResponse } from "@/types";
 
-const CreateAccountForm = () => {
+interface Props {
+  uid: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  setAccounts:Dispatch<SetStateAction<AccountProps[]>>
+  accounts:AccountProps[];
+}
+
+const CreateAccountForm = ({ uid, setOpen, setAccounts, accounts }: Props) => {
   const form = useForm<z.infer<typeof createAccountSchema>>({
     resolver: zodResolver(createAccountSchema),
     defaultValues: {
@@ -28,7 +38,24 @@ const CreateAccountForm = () => {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof createAccountSchema>) => {
-    console.log(values);
+    try {
+      const { data } = await axios.post<AccountResponse>("/api/account", {
+        ...values,
+        uid,
+      });
+
+      if (data.success) {
+        toast.success(data.message);
+        form.reset();
+        setOpen(false);
+        setAccounts([...accounts, data.accounts as AccountProps])
+      } else {
+        setOpen(false);
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast("Account in not successfully created ");
+    }
   };
 
   return (
@@ -76,14 +103,13 @@ const CreateAccountForm = () => {
                       display: "grid",
                       gridTemplateColumns: "repeat(4,1fr)",
                       gap: "10px",
-                      
                     }}
                     inputStyle={{
                       borderColor: "RGBA(255,255,255, 0.16)",
                       height: "56px",
                       width: "100%",
                       fontSize: "40px",
-                      borderRadius:"5px"
+                      borderRadius: "5px",
                     }}
                     secretDelay={1000}
                     type="numeric"
@@ -96,7 +122,11 @@ const CreateAccountForm = () => {
               </FormItem>
             )}
           />
-          <Button disabled={isSubmitting} type="submit" className="w-full bg-red-600 hover:bg-red-800 flex justify-center items-center h-[56px] !text-white mt-4 rounded">
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            className="w-full bg-red-600 hover:bg-red-800 flex justify-center items-center h-[56px] !text-white mt-4 rounded"
+          >
             Create an Account
           </Button>
         </form>
