@@ -29,12 +29,13 @@ const Banner = ({ movies }: Props) => {
           objectFit="cover"
         />
         <div className="absolute w-full z-20 h-56 bg-gradient-to-t from-black to-transparent bottom-0 " />
+        <div className="absolute w-full h-full z-20 bg-gradient-to-r from-black to-transparent bottom-0 " />
       </div>
-      <h1 className="text-2xl md:text-4xl lg:text-7xl font-bold ">
+      <h1 className="text-2xl md:text-4xl lg:text-7xl font-bold line-clamp-1">
         {randomMovie?.title || randomMovie?.name || randomMovie?.original_name}
       </h1>
 
-      <p className="max-w-xs text-shadow-md text-xs md:max-w-lg md:text-lg lg:max-w-2xl line-clamp-3">
+      <p className="max-w-xs text-shadow-md text-xs md:max-w-lg md:text-lg lg:max-w-2xl line-clamp-2">
         {randomMovie?.overview}
       </p>
       <div className={"flex space-x-3"}>

@@ -1,13 +1,15 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
-import { ContextType, ChildProps, AccountProps } from "@/types";
+import { ContextType, ChildProps, AccountProps, MovieProps } from "@/types";
 
 export const Context = createContext<ContextType | null>(null);
 
 const GlobalContext = ({ children }: ChildProps) => {
   const [account, setAccount] = useState<AccountProps | null>(null);
-  const [pageLoader, setPageLoader] = useState(true)
+  const [pageLoader, setPageLoader] = useState(true);
+  const [open, setOpen] = useState(false)
+  const [movie, setMovie] = useState<MovieProps | null>(null)
 
   useEffect(() => {
     const storedAccount = sessionStorage.getItem("account");
@@ -17,7 +19,18 @@ const GlobalContext = ({ children }: ChildProps) => {
   }, []);
 
   return (
-    <Context.Provider value={{ account, setAccount, pageLoader, setPageLoader }}>
+    <Context.Provider
+      value={{
+        account,
+        setAccount,
+        pageLoader,
+        setPageLoader,
+        open,
+        setOpen,
+        movie,
+        setMovie,
+      }}
+    >
       {children}
     </Context.Provider>
   );
