@@ -2,8 +2,8 @@ import Account from "@/database/account";
 import { connectToDatabase } from "@/lib/mongoose";
 import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
+export const dynamic = "force-dynamic"; 
 
-export const dynamic = "force-dynamic";
 
 // Create a new Account
 export async function POST(req: Request) {

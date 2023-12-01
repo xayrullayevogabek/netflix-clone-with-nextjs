@@ -1,21 +1,47 @@
 import React from "react";
 import { MovieProps } from "@/types";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { CheckIcon, PlusIcon, ChevronDown } from "lucide-react";
 import { useGlobalContext } from "@/context";
+import { useSession } from "next-auth/react";
 import CustomImage from "../custom-image";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 interface Props {
   movie: MovieProps;
 }
 
 const MovieItem = ({ movie }: Props) => {
-  const { setOpen, setMovie } = useGlobalContext();
+  const { setOpen, setMovie, account } = useGlobalContext();
+  const { data: session }: any = useSession();
 
   const openHandler = () => {
     setMovie(movie);
     setOpen(true);
+  };
+
+  const onAdd = async () => {
+    try {
+      const { data } = await axios.post("/api/favorites", {
+        uid: session?.user?.uid,
+        accountId: account?._id,
+        backdrop_path: movie?.backdrop_path,
+        poster_path: movie?.poster_path,
+        movieId: movie?.id,
+        type: movie?.type,
+        title: movie?.title || movie?.name,
+        overview: movie?.overview,
+      });
+
+      if (data?.success) {
+        toast.success("Movie added to favourites");
+      }else{
+        toast.error(data?.message)
+      }
+    } catch (error) {
+      toast.error("Something went wrong")
+    }
   };
 
   return (
@@ -45,7 +71,7 @@ const MovieItem = ({ movie }: Props) => {
             {movie?.addedToFavorites ? (
               <CheckIcon color="#ffffff" className="h-7 w-7" />
             ) : (
-              <PlusIcon color="#ffffff" className="h-7 w-7" />
+              <PlusIcon onClick={onAdd} color="#ffffff" className="h-7 w-7" />
             )}
           </button>
           <button className="cursor-pointer p-2 border flex items-center gap-x-2 rounded-full  text-sm font-semibold transition hover:opacity-90  border-white  bg-black opacity-75 ">

@@ -52,7 +52,7 @@ export const getMovieDetails = async (type?: string, id?: number) => {
     const { data } = await axios.get(
       `${BASE_URL}/${type}/${id}?api_key=${API_KEY}&language=en-US&append_to_response=videos`
     );
-    return {data, type};
+    return { data, type };
   } catch (e) {
     console.log(e);
   }
@@ -60,9 +60,23 @@ export const getMovieDetails = async (type?: string, id?: number) => {
 
 export const getSimilarMovies = async (type?: string, id?: number) => {
   try {
-    const {data} = await  axios.get(`${BASE_URL}/${type}/${id}/similar?api_key=${API_KEY}&language=en-US`)
+    const { data } = await axios.get(
+      `${BASE_URL}/${type}/${id}/similar?api_key=${API_KEY}&language=en-US`
+    );
     return data && data.results;
-  }catch (e) {
-    console.log(e)
+  } catch (e) {
+    console.log(e);
   }
-}
+};
+
+export const getFavouritesMovie = async (uid?: string, accountId?: string) => {
+  try {
+    const { data } = await axios.get(
+      `/api/favorites?uid=${uid}&accountId=${accountId}`
+    );
+
+    return data
+  } catch (e) {
+    console.log(e);
+  }
+};
