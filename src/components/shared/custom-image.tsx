@@ -6,9 +6,10 @@ interface Props {
   image: string;
   alt: string;
   className: string;
+  onClick: () => void;
 }
 
-const CustomImage = ({ image, alt, className }: Props) => {
+const CustomImage = ({ image, alt, className, onClick }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
@@ -24,6 +25,7 @@ const CustomImage = ({ image, alt, className }: Props) => {
       )}
       fill
       onLoadingComplete={() => setIsLoading(false)}
+      onClick={onClick}
     />
   );
 };

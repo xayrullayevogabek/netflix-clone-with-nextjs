@@ -8,3 +8,4 @@ export const createAccountSchema = z.object({
 export const loginSchema = z.object({
   pin: z.string().min(4).max(4),
 });
+

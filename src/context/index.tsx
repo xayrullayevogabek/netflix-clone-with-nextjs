@@ -8,8 +8,8 @@ export const Context = createContext<ContextType | null>(null);
 const GlobalContext = ({ children }: ChildProps) => {
   const [account, setAccount] = useState<AccountProps | null>(null);
   const [pageLoader, setPageLoader] = useState(true);
-  const [open, setOpen] = useState(false)
-  const [movie, setMovie] = useState<MovieProps | null>(null)
+  const [open, setOpen] = useState(false);
+  const [movie, setMovie] = useState<MovieProps | null>(null);
 
   useEffect(() => {
     const storedAccount = sessionStorage.getItem("account");

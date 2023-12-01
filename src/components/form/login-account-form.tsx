@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { AccountProps, AccountResponse } from "@/types";
 import axios from "axios";
 import React, { useState } from "react";
@@ -39,7 +39,7 @@ const LoginAccountForm = ({ currentAccount }: Props) => {
         setError(true);
       }
     } catch (error) {
-      toast.error("Something went wrong")
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }

@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { AiFillGithub } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 
-
 const Login = () => {
   return (
     <div className="w-full h-screen">

@@ -1,24 +1,24 @@
-import {MenuItemProps} from "@/types";
+import { MenuItemProps } from "@/types";
 
 export const menuItems: MenuItemProps[] = [
   {
-    id: 'home',
-    title: 'Home',
-    path: '/browse'
+    id: "home",
+    title: "Home",
+    path: "/browse",
   },
   {
-    id: 'tv',
-    title: 'TV Shows',
-    path: '/tv'
+    id: "tv",
+    title: "TV Shows",
+    path: "/tv",
   },
   {
-    id: 'movies',
-    title: 'Movies',
-    path: '/movies'
+    id: "movies",
+    title: "Movies",
+    path: "/movies",
   },
   {
-    id: 'my-list',
-    title: 'My List',
-    path: '/mylist'
+    id: "my-list",
+    title: "My List",
+    path: "/mylist",
   },
-]
+];

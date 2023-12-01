@@ -22,8 +22,8 @@ import { AccountProps, AccountResponse } from "@/types";
 interface Props {
   uid: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  setAccounts:Dispatch<SetStateAction<AccountProps[]>>
-  accounts:AccountProps[];
+  setAccounts: Dispatch<SetStateAction<AccountProps[]>>;
+  accounts: AccountProps[];
 }
 
 const CreateAccountForm = ({ uid, setOpen, setAccounts, accounts }: Props) => {
@@ -48,7 +48,7 @@ const CreateAccountForm = ({ uid, setOpen, setAccounts, accounts }: Props) => {
         toast.success(data.message);
         form.reset();
         setOpen(false);
-        setAccounts([...accounts, data.accounts as AccountProps])
+        setAccounts([...accounts, data.accounts as AccountProps]);
       } else {
         setOpen(false);
         toast.error(data.message);

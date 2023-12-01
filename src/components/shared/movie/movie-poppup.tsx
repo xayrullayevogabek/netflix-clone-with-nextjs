@@ -131,3 +131,4 @@ const MoviePoppup = () => {
 };
 
 export default MoviePoppup;
+

@@ -17,7 +17,10 @@ const Common = ({ moviesData }: Props) => {
       </div>
 
       <section className=" md:space-y-16">
-        {moviesData && moviesData.map((movie) => <MovieRow title={movie.title} data={movie.data} key={movie.title} />)}
+        {moviesData &&
+          moviesData.map((movie) => (
+            <MovieRow title={movie.title} data={movie.data} key={movie.title} />
+          ))}
       </section>
     </div>
   );

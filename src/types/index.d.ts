@@ -115,3 +115,4 @@ export interface FavouriteProps {
   overview: string;
   _id?: string;
 }
+

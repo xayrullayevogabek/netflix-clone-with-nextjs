@@ -30,3 +30,4 @@ const MovieRow = ({ data, title }: Props) => {
 };
 
 export default MovieRow;
+

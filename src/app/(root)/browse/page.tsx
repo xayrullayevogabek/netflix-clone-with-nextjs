@@ -47,7 +47,7 @@ const Page = () => {
           data: item.data.map((movie: MovieProps) => ({
             ...movie,
             type: "tv",
-            addedToFavorites:false
+            addedToFavorites: false,
           })),
         }));
 
@@ -60,7 +60,7 @@ const Page = () => {
           data: item.data.map((movie: MovieProps) => ({
             ...movie,
             type: "movie",
-            addedToFavorites:false
+            addedToFavorites: false,
           })),
         }));
 
@@ -74,13 +74,13 @@ const Page = () => {
       }
     };
     getAllMovies();
-  },[]);
+  }, []);
 
   if (session === null) return <Login />;
   if (account === null) return <ManageAccount />;
   if (pageLoader) return <Loader />;
 
-  return <Common moviesData={moviesData}/>;
+  return <Common moviesData={moviesData} />;
 };
 
 export default Page;

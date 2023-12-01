@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { MovieProps } from "@/types";
 import Image from "next/image";
 import { AiFillPlayCircle } from "react-icons/ai";
-import {IoMdInformationCircleOutline} from "react-icons/io";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 interface Props {
   movies: MovieProps[];
@@ -39,15 +39,11 @@ const Banner = ({ movies }: Props) => {
         {randomMovie?.overview}
       </p>
       <div className={"flex space-x-3"}>
-        <button
-          className="cursor-pointer flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl bg-white text-black"
-        >
+        <button className="cursor-pointer flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl bg-white text-black">
           <AiFillPlayCircle className="h-4 w-4 text-black md:h-7 md:w-7 cursor-pointer" />
           Play
         </button>
-        <button
-          className="cursor-pointer flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl bg-[gray]/70"
-        >
+        <button className="cursor-pointer flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl bg-[gray]/70">
           <IoMdInformationCircleOutline className="h-5 w-5  md:h-8 md:w-8 cursor-pointer" />
           More Info
         </button>

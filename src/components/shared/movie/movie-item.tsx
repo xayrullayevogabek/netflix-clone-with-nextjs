@@ -1,7 +1,7 @@
-import React from "react";
-import { MovieProps } from "@/types";
+import React, { Dispatch, SetStateAction } from "react";
+import { FavouriteProps, MovieProps } from "@/types";
 import { motion } from "framer-motion";
-import { CheckIcon, PlusIcon, ChevronDown } from "lucide-react";
+import { CheckIcon, PlusIcon, ChevronDown, MinusIcon } from "lucide-react";
 import { useGlobalContext } from "@/context";
 import { useSession } from "next-auth/react";
 import CustomImage from "../custom-image";
@@ -10,15 +10,35 @@ import { toast } from "react-toastify";
 
 interface Props {
   movie: MovieProps;
+  favouriteId?: string;
+  setFavourites?: Dispatch<SetStateAction<FavouriteProps[]>>;
 }
 
-const MovieItem = ({ movie }: Props) => {
+const MovieItem = ({ movie, favouriteId = "", setFavourites }: Props) => {
   const { setOpen, setMovie, account } = useGlobalContext();
   const { data: session }: any = useSession();
 
   const openHandler = () => {
     setMovie(movie);
     setOpen(true);
+  };
+
+  const onRemove = async () => {
+    try {
+      const { data } = await axios.delete(`/api/favorites?id=${favouriteId}`);
+      if (data.success) {
+        if (setFavourites) {
+          setFavourites((prev: FavouriteProps[]) =>
+            prev.filter((item) => item._id !== favouriteId)
+          );
+        }
+        toast.success("Movie Successfully Removed");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onAdd = async () => {
@@ -36,11 +56,11 @@ const MovieItem = ({ movie }: Props) => {
 
       if (data?.success) {
         toast.success("Movie added to favourites");
-      }else{
-        toast.error(data?.message)
+      } else {
+        toast.error(data?.message);
       }
     } catch (error) {
-      toast.error("Something went wrong")
+      toast.error("Something went wrong");
     }
   };
 
@@ -53,7 +73,6 @@ const MovieItem = ({ movie }: Props) => {
         delay: 0.5,
         ease: [0, 0.71, 0.2, 1.01],
       }}
-      onClick={openHandler}
     >
       <div className="relative cardWrapper h-28 min-w-[180px] cursor-pointer md:h-36 md:min-w-[260px] transform transition duration-500 hover:scale-110 hover:z-[999]">
         <CustomImage
@@ -61,6 +80,7 @@ const MovieItem = ({ movie }: Props) => {
             movie?.backdrop_path || movie?.poster_path
           }`}
           alt="Image"
+          onClick={openHandler}
           className={"rounded sm object-cover md:rounded hover:rounded-sm"}
         />
 
@@ -68,8 +88,12 @@ const MovieItem = ({ movie }: Props) => {
           <button
             className={`cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition hover:opacity-90 border-white bg-black opacity-75 text-black`}
           >
-            {movie?.addedToFavorites ? (
-              <CheckIcon color="#ffffff" className="h-7 w-7" />
+            {favouriteId.length ? (
+              <MinusIcon
+                color="#ffffff"
+                className="h-7 w-7"
+                onClick={onRemove}
+              />
             ) : (
               <PlusIcon onClick={onAdd} color="#ffffff" className="h-7 w-7" />
             )}

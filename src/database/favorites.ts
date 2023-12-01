@@ -9,6 +9,7 @@ const favouriteSchema = new mongoose.Schema(
     movieId: String,
     type: String,
     title: String,
+    overview: String,
   },
   { timestamps: true }
 );

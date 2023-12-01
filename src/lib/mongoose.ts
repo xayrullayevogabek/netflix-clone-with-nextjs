@@ -26,3 +26,4 @@ export const connectToDatabase = async () => {
     console.log(error);
   }
 };
+

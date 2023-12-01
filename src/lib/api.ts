@@ -69,13 +69,24 @@ export const getSimilarMovies = async (type?: string, id?: number) => {
   }
 };
 
+export const getSearchMovies = async (type?: string, query?: string) => {
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/search/${type}?api_key=${API_KEY}&include_adult=false&language=en-US&query=${query}`
+    );
+    return data && data.results;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getFavouritesMovie = async (uid?: string, accountId?: string) => {
   try {
     const { data } = await axios.get(
       `/api/favorites?uid=${uid}&accountId=${accountId}`
     );
 
-    return data
+    return data;
   } catch (e) {
     console.log(e);
   }
