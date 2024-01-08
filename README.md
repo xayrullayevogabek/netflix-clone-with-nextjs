@@ -1,6 +1,6 @@
 <h1 align="center" id="title">NextJS Firebase Stripe Clerk - Google Drive Clone Project</h1>
 
-<p align="center"><img src="https://media.graphassets.com/u1mIG68sT6Gz79zhMurn" alt="project-image"></p>
+/*<p align="center"><img src="https://media.graphassets.com/u1mIG68sT6Gz79zhMurn" alt="project-image"></p>*/
 
 <p id="description">Embark on an exciting journey of building a Google Drive clone with the Next.js framework Firebase for backend functionality Stripe for payment integration and Clerk for authentication. This comprehensive course is designed for web developers eager to enhance their skills by creating a feature-rich cloud storage application that mirrors the functionality of Google Drive.</p>
 
